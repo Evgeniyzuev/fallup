@@ -7,7 +7,7 @@ interface Event {
   };
 }
 
-const events: Event[] = [
+export const events: Event[] = [
   {
     id: 'found_water',
     text: 'Вы нашли источник чистой воды! (+20 воды)',

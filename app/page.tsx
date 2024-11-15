@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import mapImage from '../public/map.jpg';
 import { generateRandomEvent } from './events';
 import { Inventory } from './components/Inventory';
+import Image from 'next/image';
 
 // Add this interface before the inventory state declaration
 interface InventoryItem {
@@ -38,14 +39,12 @@ function App() {
   });
   const [messages, setMessages] = useState<string[]>([]);
   const [inventoryOpen, setInventoryOpen] = useState(false);
-  const [isGameOver, setIsGameOver] = useState(false);
 
   const moveMarker = (direction: string) => {
     const step = 5;
     
     // Check if game over
     if (resources.health <= 0) {
-      setIsGameOver(true);
       setMessages(prev => ['GAME OVER! Вы погибли.', ...prev].slice(0, 5));
       return;
     }
@@ -154,12 +153,12 @@ function App() {
         overflow: 'hidden',
         position: 'relative'
       }}>
-        <img 
+        <Image 
           src="/gameover.jpg" 
           alt="Game Over" 
+          fill
+          priority
           style={{ 
-            width: '100%', 
-            height: '100%', 
             objectFit: 'cover'
           }} 
         />
