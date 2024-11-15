@@ -29,6 +29,7 @@ function App() {
   const [position, setPosition] = useState({ x: MARKER_SIZE/2, y: MARKER_SIZE/2 });
   const [visitedCells, setVisitedCells] = useState<Set<string>>(new Set(['0,0']));
   const [resources, setResources] = useState({
+    bullets: 100,
     water: 100,
     food: 100,
     health: 100,
@@ -230,28 +231,30 @@ function App() {
             {/* Панель ресурсов */}
             <div style={{ 
               display: 'flex', 
-              gap: '20px', 
-              fontSize: '1.2em',
+              gap: '10px', 
+              fontSize: '0.6em',
               backgroundColor: 'white',
-              padding: '10px 20px',
-              borderRadius: '8px',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+              padding: '5px 10px',
+              borderRadius: '4px',
+              boxShadow: '0 1px 2px rgba(0,0,0,0.1)'
             }}>
               <span>💧 {resources.water}</span>
               <span>🍗 {resources.food}</span>
+              {/* патроны */}
+              <span>🔫 {resources.bullets}</span>
               <span>❤️ {resources.health}</span>
               <span>⚡️ {resources.energy}</span>
               <span>🪙 {resources.money}</span>
             </div>
 
             {/* Кнопки движения */}
-            <div style={{ display: 'flex', gap: '5px' }}>
-              <button onClick={() => moveMarker('up')}>↑</button>
-              <button onClick={() => moveMarker('left')}>←</button>
-              <button onClick={() => moveMarker('right')}>→</button>
-              <button onClick={() => moveMarker('down')}>↓</button>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button style={{ padding: '10px 20px', fontSize: '1.2em' }} onClick={() => moveMarker('up')}>↑</button>
+              <button style={{ padding: '10px 20px', fontSize: '1.2em' }} onClick={() => moveMarker('left')}>←</button>
+              <button style={{ padding: '10px 20px', fontSize: '1.2em' }} onClick={() => moveMarker('right')}>→</button>
+              <button style={{ padding: '10px 20px', fontSize: '1.2em' }} onClick={() => moveMarker('down')}>↓</button>
               {/* Кнопка инвентаря */}
-              <button onClick={() => setInventoryOpen(true)}>💼</button>
+              <button style={{ padding: '10px 20px', fontSize: '1.2em' }} onClick={() => setInventoryOpen(true)}>🎒</button>
             </div>
           </div>
         </div>
