@@ -2,7 +2,7 @@ interface Event {
   id: string;
   text: string;
   effect: {
-    type: 'water' | 'food' | 'health' | 'energy' | 'money';
+    type: 'water' | 'food' | 'health' | 'energy' | 'money' | 'empty' | 'bullets' | 'enemy';
     value: number;
   };
 }
@@ -41,6 +41,57 @@ const events: Event[] = [
 ];
 
 export const generateRandomEvent = (): Event => {
-  const randomIndex = Math.floor(Math.random() * events.length);
-  return events[randomIndex];
+  const random = Math.floor(Math.random() * 100) + 1;
+  const baseValue = Math.floor(Math.random() * 201) - 100;
+
+  if (random <= 30) {
+    const value = Math.floor(baseValue * 0.5);
+    return {
+      id: 'enemy',
+      text: `Вы встретили врага! (${value} здоровья)`,
+      effect: { type: 'money', value }
+    };
+  } else if (random <= 45) {
+    const value = Math.floor(baseValue * 0.8);
+    return {
+      id: 'found_water',
+      text: `Вы нашли источник чистой воды! (${value} воды)`,
+      effect: { type: 'water', value }
+    };
+  } else if (random <= 60) {
+    const value = Math.floor(baseValue * 0.6);
+    return {
+      id: 'found_food',
+      text: `В заброшенном доме вы нашли консервы! (${value} еды)`,
+      effect: { type: 'food', value }
+    };
+  } else if (random <= 70) {
+    const value = Math.floor(baseValue * 0.3);
+    return {
+      id: 'injury',
+      text: `Вы поскользнулись и ушибли ногу (${value} здоровья)`,
+      effect: { type: 'health', value }
+    };
+  } else if (random <= 80) {
+    const value = Math.floor(baseValue * 0.4);
+    return {
+      id: 'tired',
+      text: `Долгий путь утомил вас (${value} энергии)`,
+      effect: { type: 'energy', value }
+    };
+  } else if (random <= 90) {
+    const value = Math.floor(baseValue * 1.2);
+    return {
+      id: 'merchant',
+      text: `Вы встретили торговца и купили припасы (${value} монет)`,
+      effect: { type: 'money', value }
+    };
+  } else {
+    const value = Math.floor(baseValue * 2);
+    return {
+      id: 'treasure',
+      text: `Вы нашли старый тайник! (${value} монет)`,
+      effect: { type: 'money', value }
+    };
+  }
 }; 

@@ -38,10 +38,18 @@ function App() {
   });
   const [messages, setMessages] = useState<string[]>([]);
   const [inventoryOpen, setInventoryOpen] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   const moveMarker = (direction: string) => {
     const step = 5;
     
+    // Check if game over
+    if (resources.health <= 0) {
+      setIsGameOver(true);
+      setMessages(prev => ['GAME OVER! Вы погибли.', ...prev].slice(0, 5));
+      return;
+    }
+
     setPosition(prev => {
       let newX = prev.x;
       let newY = prev.y;
@@ -61,13 +69,43 @@ function App() {
           break;
       }
 
+      // Generate random event
       const event = generateRandomEvent();
       setMessages(prev => [`${event.text}`, ...prev].slice(0, 5));
       
+      // Apply event effect
       setResources(prev => ({
         ...prev,
         [event.effect.type]: Math.max(0, prev[event.effect.type as keyof typeof prev] + event.effect.value)
       }));
+
+      // Decrease resources each turn
+      setResources(prev => {
+        const newResources = {
+          ...prev,
+          water: Math.max(0, prev.water - 1),
+          food: Math.max(0, prev.food - 1),
+          energy: Math.max(0, prev.energy - 1)
+        };
+
+        // If any resource is 0, decrease health
+        let healthLoss = 0;
+        if (newResources.water === 0) healthLoss += 1;
+        if (newResources.food === 0) healthLoss += 1;
+        if (newResources.energy === 0) healthLoss += 1;
+
+        if (healthLoss > 0) {
+          setMessages(prevMessages => [
+            `Критическая нехватка ресурсов! (-${healthLoss} здоровья)`,
+            ...prevMessages
+          ].slice(0, 5));
+        }
+
+        return {
+          ...newResources,
+          health: Math.max(0, prev.health - healthLoss)
+        };
+      });
 
       const cellX = Math.floor(newX / CELL_SIZE);
       const cellY = Math.floor(newY / CELL_SIZE);
@@ -108,6 +146,27 @@ function App() {
     });
   };
 
+  if (resources.health <= 0) {
+    return (
+      <div style={{ 
+        width: '100vw', 
+        height: '100vh', 
+        overflow: 'hidden',
+        position: 'relative'
+      }}>
+        <img 
+          src="/gameover.jpg" 
+          alt="Game Over" 
+          style={{ 
+            width: '100%', 
+            height: '100%', 
+            objectFit: 'cover'
+          }} 
+        />
+      </div>
+    );
+  }
+
   return (
     <div style={{ 
       display: 'flex', 
@@ -136,7 +195,7 @@ function App() {
           {/* Карта */}
           <img 
             src={mapImage.src} 
-            alt="Map" 
+            alt={"Map"} 
             style={{ 
               width: '100%', 
               height: '100%', 
