@@ -307,12 +307,66 @@ function App() {
 
             {/* Кнопки движения */}
             <div style={{ display: 'flex', gap: '10px' }}>
-              <button style={{ padding: '10px 20px', fontSize: '1.2em' }} onClick={() => moveMarker('up')}>↑</button>
-              <button style={{ padding: '10px 20px', fontSize: '1.2em' }} onClick={() => moveMarker('left')}>←</button>
-              <button style={{ padding: '10px 20px', fontSize: '1.2em' }} onClick={() => moveMarker('right')}>→</button>
-              <button style={{ padding: '10px 20px', fontSize: '1.2em' }} onClick={() => moveMarker('down')}>↓</button>
-              {/* Кнопка инвентаря */}
-              <button style={{ padding: '10px 20px', fontSize: '1.2em' }} onClick={() => setInventoryOpen(true)}>🎒</button>
+              <button 
+                style={{ 
+                  padding: '10px 20px', 
+                  fontSize: '1.2em',
+                  border: '2px solid #666',
+                  borderRadius: '4px',
+                  backgroundColor: 'transparent',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }} 
+                onClick={() => moveMarker('up')}
+              >↑</button>
+              <button 
+                style={{ 
+                  padding: '10px 20px', 
+                  fontSize: '1.2em',
+                  border: '2px solid #666',
+                  borderRadius: '4px',
+                  backgroundColor: 'transparent',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }} 
+                onClick={() => moveMarker('left')}
+              >←</button>
+              <button 
+                style={{ 
+                  padding: '10px 20px', 
+                  fontSize: '1.2em',
+                  border: '2px solid #666',
+                  borderRadius: '4px',
+                  backgroundColor: 'transparent',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }} 
+                onClick={() => moveMarker('right')}
+              >→</button>
+              <button 
+                style={{ 
+                  padding: '10px 20px', 
+                  fontSize: '1.2em',
+                  border: '2px solid #666',
+                  borderRadius: '4px',
+                  backgroundColor: 'transparent',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }} 
+                onClick={() => moveMarker('down')}
+              >↓</button>
+              <button 
+                style={{ 
+                  padding: '10px 20px', 
+                  fontSize: '1.2em',
+                  border: '2px solid #666',
+                  borderRadius: '4px',
+                  backgroundColor: 'transparent',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }} 
+                onClick={() => setInventoryOpen(true)}
+              >🎒</button>
             </div>
           </div>
         </div>
